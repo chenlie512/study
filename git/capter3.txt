@@ -1,0 +1,52 @@
+Git分支
+
+一、分支简介
+1.Git仓库有blob对象（保存着文件快照）、数对象（记录着目录结构和blob对象索引）以及提交对象（包含着指向树对象的指针和提交信息）
+2.提交对象都包含一个父对象的指针，首次提交父对象指针为空
+3.创建分支。git branch <branch-name>在当前提交对象上创建一个指针
+4.查看各个分支当前所指的对象
+git log --oneline --decorate
+git log --oneline --decorate --graph --all  输出你的提交历史、各个分支的指向以及项目的分支分叉情况
+5.分支切换。git checkout <branch-name>
+
+
+二、分支新建与合并
+1.创建并切换分支
+git checkout -b <branch-name>
+相当于下面两条语句
+git branch <branch-name>
+git checkout <branch-name>
+2.git merge <branch-name> 把<branch-name>与当前分支进行合并
+3.git branch -d <branch-name> 删除分支
+4.当不同分支对同一个文件进行修改的时候合并，会出现冲突。
+遇到冲突时的解决办法一：手工合并，然后添加暂存（git add就会标记为已解决冲突），提交
+二：使用图形化工具来解决冲突：git mergetool
+
+
+三、分支管理
+1.git branch -v 查看每个分支的最后一次提交
+2.git branch --merged 可以查看哪些分支已经合并到当前分支
+3.git branch --no-merged 可以查看哪些分支还没有合并到当前分支
+4.没有合并到当前分支的用git branch -d <branch-name>是不能删除，如果实在是不想要保存修改的内容，可以用git branch -D <branch-name>强制删除
+
+
+四、远程分支
+1.git fetch <remote-name> 从远程仓库中抓取本地没有的数据，同时本地指针也会更新到跟远程一样
+2.把本地数据推送到远程，git push <remote-name> <branch>
+还可以 git push <remote-name> <branch-name1>:<branch-name2> 把本地<branch-name1>分支推送到远程<branch-name2>分支
+3.git checkout -b <branch-name> <remote-name>/<branch-name> 
+当fetch一个远程仓库，远程仓库中有<branch-name>，而本地没有，那么不会自动建一个<branch-name>,只是有一个<remote-name>/<branch-name>指针。
+要用git checkout -b新建一个<branch-name>分支，并跟踪远程<remote-name>/<branch-name>,且转到<branch-name>分支
+git checkout --track origin/serverfix 本地创建一个serverfix分支，来跟踪远程origin上的serverfix分支
+4.git branch -u origin/serverfix 设置本地已有的serverfix分支跟踪远程origin/serverfix分支
+5.git branch -vv 本地每个分支的情况。这些信息是并没有连接服务器的，要连接服务器要先执行 git fetch --all 
+6.远程仓库中拉取数据
+git fetch 从服务器中抓取本地没有的数据，它并不会修改工作目录中的内容。它只会获取数据，然后你自己合并
+git pull 从服务器中抓取本地没有的数据，且修改工作目录中的内容。相当于git fetch 和 git merge两条命令
+7.删除远程分支
+git push <remote-name> --delete <branch-name>  删除远程仓库<remote-name>上的<branch-name>分支
+
+
+五、变基
+结果跟合并（merge）一样，但是提交信息会更加简洁。
+

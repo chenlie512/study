@@ -1,0 +1,11 @@
+Git前奏
+1.Git是快照流：每个文件都保留快照，一个文件没有修改的，那么只有一个快照。一个文件有多个版本的，那么有多个快照。快照的索引都保存着，通过索引来找文件。
+2.近乎所有操作都是本地操作。生成git仓库后（可以通过Init初始化或clone），工作区、暂存区和本地数据库都在本地，对项目的增删改查都在本地完成，只有在push到云端的时候才需要网络，因此速度非常快。
+3.git只添加数据，你可以放心地对数据进行操作，不用担心产生不可逆的事情。
+4.git工作有三种状态：已修改（modified）、已暂存（staged）、已提交（committed）
+5.已修改（modified）：在工作目录中修改文件，但还没有git add
+6.已暂存（staged）：将文件的快照放入暂存区域，已git add
+7.已提交（committed）：提交更新 git committed
+8.第一次使用git都需要配置用户名和邮箱。
+git config --global user.name
+git config --global user.email

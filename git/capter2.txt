@@ -1,0 +1,74 @@
+一、获取Git仓库
+1.把本地文件初始化形成一个Git仓库。用git init初始化
+2.从服务器克隆一个现成的Git仓库。用git clone克隆
+git clone URL 在本地文件夹下完整地克隆一个GIT仓库
+git clone URL name 在本地文件夹下完整地克隆一个GIT仓库，并以name命名这个文件夹
+
+二、纪录每次更新到仓库
+1.检查当前文件状态
+git status
+2.跟踪新文件。git add 文件或者目录路径
+如果是目录路径将会跟踪目录路径下的所有文件
+3.暂存已修改文件。用git add将文件放入暂存区
+4.文件同时处在暂存状态和已修改状态git commit会提交最后一次git add的版本，而不是你当前工作目录中的版本，要把工作目录中的版本提交，需要重新git add
+5.状态简览：git status -s或git status --short
+标识表示的意思如下：
+？？：表示文件未被跟踪
+右边M：表示文件修改了但是没有添加到暂存区
+左边M：表示文件修改了并且添加到了暂存区
+MM：表示文件修改了并且添加到了暂存区，但是在工作目录中又被修改了
+6.忽略文件。创建一个.gitignore文件来存放忽略文件名
+7.查看已暂存和未暂存的修改。
+git diff可以查看文件暂存版本和未暂存版本的修改
+git diff --cached 查看已暂存的下次要提交的内容
+8.提交更新。
+git commit 会提交暂存区的变动。如果文件修改了但是未暂存，将不会被提交。并打开vim以便输入提交说明
+git commit -v 会把diff输出放到编辑器使你知道本次提交具体做了哪些修改，退出编辑器时会丢掉注释行，保留你输入的信息
+git commit -m 把信息和命令放在同一行
+9.跳过使用暂存区域
+git commit -a Git会把已跟踪过的文件暂存起来一起提交，跳过了git add步骤
+10.移除文件
+rm 移除工作目录中的文件
+git rm 移除跟踪记录，下一次提交后，将不在跟踪
+git rm -f 修改过并且已经放到暂存区但没有提交的文件只能用这种方法来移除，这种操作不会被Git恢复
+git rm --cached 移除暂存区文件，但是在工作目录中保留
+11.移动文件（改名）
+git mv README.md README    把文件名为README.md改成README
+相当于下面三条语句
+mv README.md README
+git rm README.md
+git add README
+
+三、查看提交历史
+1.git log 查看提交纪录
+2.git log -p 显示每次提交的内容差异   -2显示最近两次提交
+3.git log --stat 列出有多少文件被修改，修改过的文件哪些行被移除或者添加，在每次提交的最后还有一个总结
+4.git log --pretty=oneline/short/full/fuller
+5.git log --pretty=format:"%h - %an,%ar : %s" 具体请看官方文档
+更多git log请查看官方文档
+
+四、撤销操作
+1.git commit -amend 会覆盖前一次提交结果
+2.git reset HEAD <file> 取消暂存的文件
+3.git checkout --<file> 撤销对文件的修改，操作本质是用文件去覆盖他，所以你做得任何修改都将丢失，慎用！
+
+
+
+五、远程仓库的使用
+1.查看远程仓库
+git remote   查看远程仓库的名字
+git remote -v 查看远程仓库的名字及URL
+git remote show <remote-name> 查看远程仓库的更多信息
+2.添加远程仓库
+git remote add <remote-name> URL
+3.拉取远程仓库中有而你没有的文件
+git fetch <remote-name>
+注意：fetch不会合并或者修改你当前的工作
+4.git pull <remote-name>
+也是拉取远程仓库的数据，但是会合并和修改你当前的工作
+5.推送到远程仓库
+git push origin master
+6.远程仓库的重命名
+git remote rename pb paul
+7.远程仓库的移除
+git remote rm <remote-name>
