@@ -21,6 +21,7 @@ git checkout <branch-name>
 4.当不同分支对同一个文件进行修改的时候合并，会出现冲突。
 遇到冲突时的解决办法一：手工合并，然后添加暂存（git add就会标记为已解决冲突），提交
 二：使用图形化工具来解决冲突：git mergetool
+5.两个分支文件对比：git diff [branchA] [branchB]>>d:/diff/a.diff
 
 
 三、分支管理
